@@ -3,7 +3,7 @@ import { Service } from './types';
 
 export const BUSINESS_CONFIG = {
   name: 'Elite Precision Detailing',
-  whatsappNumber: '15551234567', // Format: CountryCode + Number (no plus or spaces)
+  whatsappNumber: '919779780895', // Format: CountryCode + Number (no plus or spaces)
   location: '123 Luxury Lane, Automotive District, CA 90210',
   coordinates: { lat: 34.0736, lng: -118.4004 }, // Example: Beverly Hills area
   email: 'bookings@eliteprecision.com',
