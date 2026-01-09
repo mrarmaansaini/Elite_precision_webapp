@@ -1,0 +1,7 @@
+{
+  "name": "Copy of Elite Precision Detailing",
+  "description": "A premium car detailing service booking application with WhatsApp integration, service selection, and real-time price estimation.",
+  "requestFramePermissions": [
+    "geolocation"
+  ]
+}
