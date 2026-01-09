@@ -9,29 +9,31 @@ const Hero: React.FC = () => {
         <img 
           src="https://images.unsplash.com/photo-1607860108855-64acf2078ed9?auto=format&fit=crop&q=80&w=2000" 
           alt="Luxury Car Detailing" 
-          className="w-full h-full object-cover opacity-20 grayscale"
+          className="w-full h-full object-cover opacity-20 grayscale animate-slow-zoom"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-[#09090b] via-[#09090b]/90 to-transparent"></div>
         <div className="absolute inset-0 bg-gradient-to-t from-[#09090b] via-transparent to-transparent"></div>
         
         {/* Subtle Purple Glow */}
-        <div className="absolute -top-[20%] -left-[10%] w-[50%] h-[50%] bg-purple-900/20 blur-[120px] rounded-full"></div>
+        <div className="absolute -top-[20%] -left-[10%] w-[50%] h-[50%] bg-purple-900/20 blur-[120px] rounded-full animate-pulse"></div>
       </div>
 
       <div className="container mx-auto px-6 relative z-10 pt-20">
         <div className="max-w-2xl">
-          <h2 className="text-purple-500 font-semibold tracking-[0.3em] uppercase mb-4 animate-fade-in text-sm">Matte Detailing Specialist</h2>
-          <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight font-lexend">
-            Excellence In <span className="text-purple-500">Every</span> Pixel
+          <h2 className="text-purple-500 font-semibold tracking-[0.3em] uppercase mb-4 animate-fade-up opacity-0 text-sm">
+            Matte Detailing Specialist
+          </h2>
+          <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight font-lexend animate-fade-up delay-100 opacity-0">
+            Excellence In <span className="shimmer-text">Every</span> Pixel
           </h1>
-          <p className="text-zinc-400 text-lg md:text-xl mb-10 leading-relaxed max-w-xl">
+          <p className="text-zinc-400 text-lg md:text-xl mb-10 leading-relaxed max-w-xl animate-fade-up delay-200 opacity-0">
             Uncompromising quality for those who demand perfection. Our purple-tier detailing resets your vehicle to showroom standards using premium nanotechnology.
           </p>
           
-          <div className="flex flex-col sm:flex-row gap-5">
+          <div className="flex flex-col sm:flex-row gap-5 animate-fade-up delay-300 opacity-0">
             <a 
               href="#booking" 
-              className="bg-purple-600 hover:bg-purple-500 text-white px-10 py-5 rounded-2xl font-bold text-lg transition-all flex items-center justify-center gap-3 shadow-2xl shadow-purple-600/30 active:scale-95"
+              className="bg-purple-600 hover:bg-purple-500 text-white px-10 py-5 rounded-2xl font-bold text-lg transition-all flex items-center justify-center gap-3 shadow-2xl shadow-purple-600/30 hover:shadow-purple-500/50 hover:-translate-y-1 active:scale-95"
             >
               Secure a Slot
               <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" viewBox="0 0 24 24" fill="currentColor">
@@ -40,20 +42,20 @@ const Hero: React.FC = () => {
             </a>
             <a 
               href="#services" 
-              className="bg-white/5 hover:bg-white/10 text-white border border-white/10 px-10 py-5 rounded-2xl font-bold text-lg transition-all text-center backdrop-blur-md active:scale-95"
+              className="bg-white/5 hover:bg-white/10 text-white border border-white/10 px-10 py-5 rounded-2xl font-bold text-lg transition-all text-center backdrop-blur-md hover:-translate-y-1 active:scale-95"
             >
               Our Services
             </a>
           </div>
 
-          <div className="mt-16 flex items-center gap-6">
+          <div className="mt-16 flex items-center gap-6 animate-fade-up delay-500 opacity-0">
             <div className="flex -space-x-3">
               {[1, 2, 3, 4].map(i => (
                 <img 
                   key={i} 
                   src={`https://i.pravatar.cc/100?u=car${i}`} 
                   alt="Client" 
-                  className="w-11 h-11 rounded-full border-2 border-[#09090b] shadow-xl"
+                  className="w-11 h-11 rounded-full border-2 border-[#09090b] shadow-xl hover:translate-y-[-4px] transition-transform"
                 />
               ))}
             </div>
@@ -68,9 +70,9 @@ const Hero: React.FC = () => {
       </div>
       
       {/* Scroll Indicator */}
-      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-50">
+      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-50 transition-opacity hover:opacity-100 cursor-pointer" onClick={() => document.getElementById('services')?.scrollIntoView({behavior: 'smooth'})}>
         <span className="text-[10px] uppercase tracking-widest text-zinc-500 font-bold">Explore</span>
-        <div className="w-1 h-12 bg-gradient-to-b from-purple-500 to-transparent rounded-full animate-pulse"></div>
+        <div className="w-1 h-12 bg-gradient-to-b from-purple-500 to-transparent rounded-full animate-bounce"></div>
       </div>
     </section>
   );

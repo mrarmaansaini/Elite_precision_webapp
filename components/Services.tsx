@@ -32,7 +32,7 @@ const Services: React.FC<ServicesProps> = ({ selectedServices, toggleService }) 
               <button
                 key={category}
                 onClick={() => setActiveCategory(category)}
-                className={`px-8 py-3 rounded-2xl text-[11px] font-black uppercase tracking-[0.2em] transition-all border ${
+                className={`px-8 py-3 rounded-2xl text-[11px] font-black uppercase tracking-[0.2em] transition-all border active:scale-95 ${
                   activeCategory === category 
                     ? 'bg-purple-600 border-purple-600 text-white shadow-xl shadow-purple-600/20' 
                     : 'bg-transparent border-white/5 text-zinc-500 hover:text-purple-400 hover:border-purple-500/30'
@@ -45,14 +45,15 @@ const Services: React.FC<ServicesProps> = ({ selectedServices, toggleService }) 
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-          {filteredServices.map((service) => {
+          {filteredServices.map((service, index) => {
             const isSelected = selectedServices.includes(service.id);
             return (
               <div 
                 key={service.id}
                 onClick={() => toggleService(service.id)}
-                className={`group relative rounded-[2.5rem] overflow-hidden cursor-pointer transition-all duration-500 border-2 active:scale-[0.98] ${
-                  isSelected ? 'border-purple-500 bg-purple-500/5 shadow-2xl shadow-purple-500/10' : 'border-white/5 bg-[#0e0e11] hover:border-purple-500/30'
+                style={{ animationDelay: `${index * 100}ms` }}
+                className={`group relative rounded-[2.5rem] overflow-hidden cursor-pointer transition-all duration-500 border-2 active:scale-[0.98] animate-fade-up opacity-0 ${
+                  isSelected ? 'border-purple-500 bg-purple-500/5 shadow-2xl shadow-purple-500/10' : 'border-white/5 bg-[#0e0e11] hover:border-purple-500/30 hover:-translate-y-2'
                 }`}
               >
                 <div className="aspect-[4/3] overflow-hidden relative">
@@ -65,7 +66,7 @@ const Services: React.FC<ServicesProps> = ({ selectedServices, toggleService }) 
                   
                   {isSelected && (
                     <div className="absolute inset-0 flex items-center justify-center">
-                      <div className="w-16 h-16 bg-purple-600 rounded-full flex items-center justify-center shadow-2xl animate-bounce-short">
+                      <div className="w-16 h-16 bg-purple-600 rounded-full flex items-center justify-center shadow-2xl animate-fade-scale">
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-white" viewBox="0 0 20 20" fill="currentColor">
                           <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                         </svg>
@@ -106,8 +107,8 @@ const Services: React.FC<ServicesProps> = ({ selectedServices, toggleService }) 
         </div>
         
         {selectedServices.length > 0 && (
-          <div className="mt-20 flex flex-col items-center animate-fade-in">
-             <a href="#booking" className="bg-purple-600 hover:bg-purple-500 text-white px-12 py-5 rounded-2xl font-bold text-xl transition-all shadow-2xl shadow-purple-600/40 active:scale-95">
+          <div className="mt-20 flex flex-col items-center animate-fade-scale">
+             <a href="#booking" className="bg-purple-600 hover:bg-purple-500 text-white px-12 py-5 rounded-2xl font-bold text-xl transition-all shadow-2xl shadow-purple-600/40 active:scale-95 hover:-translate-y-1">
                Continue to Booking ({selectedServices.length} Selected)
              </a>
           </div>
