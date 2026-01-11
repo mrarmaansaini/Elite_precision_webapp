@@ -2,15 +2,14 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Header from './components/Header';
 import Hero from './components/Hero';
+import Founder from './components/Founder';
 import Services from './components/Services';
 import BookingForm from './components/BookingForm';
 import Footer from './components/Footer';
 
 const App: React.FC = () => {
   const [selectedServiceIds, setSelectedServiceIds] = useState<string[]>([]);
-  const [isAboutExpanded, setIsAboutExpanded] = useState(false);
   
-  // Ref for scroll reveal
   const revealRefs = useRef<HTMLElement[]>([]);
 
   const toggleService = (serviceId: string) => {
@@ -26,6 +25,7 @@ const App: React.FC = () => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           entry.target.classList.add('visible');
+          // Add a staggered delay to children if needed, or handle via CSS classes
         }
       });
     }, { threshold: 0.1 });
@@ -44,128 +44,59 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen selection:bg-purple-500/30 bg-[#09090b]">
+    <div className="min-h-screen bg-[#02040a] text-white overflow-hidden selection:bg-cyan-500/30">
       <Header />
       <main>
         <Hero />
         
-        <div className="reveal-on-scroll" ref={addToRefs}>
+        {/* Founder Section - "The Architect" */}
+        <div ref={addToRefs} className="reveal-on-scroll">
+            <Founder />
+        </div>
+
+        {/* Services Section - "Protocols" */}
+        <div ref={addToRefs} className="reveal-on-scroll">
           <Services 
             selectedServices={selectedServiceIds} 
             toggleService={toggleService} 
           />
         </div>
-        
-        {/* About Section - Working and Professional */}
-        <section id="about" className="py-32 relative overflow-hidden bg-[#09090b] reveal-on-scroll" ref={addToRefs}>
-          <div className="container mx-auto px-6 grid md:grid-cols-2 gap-24 items-center">
-            <div className="relative group">
-              <div className="absolute -top-20 -left-20 w-80 h-80 bg-purple-600/10 rounded-full blur-[100px] group-hover:bg-purple-600/20 transition-all duration-700"></div>
-              <div className="relative z-10 rounded-[4rem] overflow-hidden shadow-2xl border border-white/10 group-hover:border-purple-500/30 transition-all duration-700">
-                <img 
-                  src="https://images.unsplash.com/photo-1597328290883-50c5787b7c7e?auto=format&fit=crop&q=80&w=1200" 
-                  alt="Detailing Process" 
-                  className="w-full grayscale group-hover:grayscale-0 transition-all duration-1000 scale-105 group-hover:scale-100"
-                />
-              </div>
-            </div>
-            
-            <div className="relative">
-              <h2 className="text-purple-500 font-black tracking-[0.3em] uppercase mb-4 text-sm">Our Philosophy</h2>
-              <h3 className="text-4xl md:text-6xl font-bold text-white mb-8 font-lexend leading-tight">Mastery in Matte <br/>& Metallic</h3>
-              
-              <div className={`space-y-8 overflow-hidden transition-all duration-1000 ${isAboutExpanded ? 'max-h-[1000px]' : 'max-h-[380px]'}`}>
+
+        {/* Process Section - "Workflow" */}
+        <section id="process" className="py-32 relative bg-[#02040a] border-y border-white/5">
+           {/* Background Grid */}
+           <div className="absolute inset-0 bg-grid opacity-20 pointer-events-none"></div>
+
+           <div className="container mx-auto px-6 relative z-10">
+             <div className="text-center mb-20">
+               <span className="text-cyan-500 font-mono text-xs tracking-[0.3em] uppercase border border-cyan-500/30 px-3 py-1 rounded bg-cyan-950/20">Execution Logic</span>
+               <h2 className="text-4xl md:text-5xl font-bold text-white mt-6 mb-4">Operational Workflow</h2>
+             </div>
+
+             <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
                 {[
-                  { 
-                    title: "Advanced Surface Chemistry", 
-                    desc: "We don't just wash; we decontaminate. Our process uses alkaline-balanced agents to strip grime without compromising clear coat integrity." 
-                  },
-                  { 
-                    title: "White-Glove Artisans", 
-                    desc: "Our detailing specialists undergo 500+ hours of rigorous certification. We treat every vehicle as a unique project with its own specific needs." 
-                  },
-                  { 
-                    title: "Nano-Titanium Coatings", 
-                    desc: "Our ceramic solutions aren't just silica-based; we utilize titanium-infused nanotechnology for unmatched hardness and hydrophobicity." 
-                  },
-                  { 
-                    title: "Sustainability Focus", 
-                    desc: "Elite Precision uses water reclamation systems and biodegradable chemicals, ensuring your car stays green while it shines purple." 
-                  }
-                ].map((item, i) => (
-                  <div key={i} className="flex gap-6 group hover:translate-x-2 transition-transform">
-                    <div className="w-14 h-14 bg-[#0e0e11] border border-white/5 rounded-2xl flex items-center justify-center shrink-0 group-hover:border-purple-500/50 transition-all shadow-lg">
-                      <span className="text-purple-500 font-black font-lexend text-lg">{i + 1}</span>
-                    </div>
-                    <div>
-                      <h4 className="text-xl font-bold text-white mb-2 transition-colors group-hover:text-purple-400 font-lexend">{item.title}</h4>
-                      <p className="text-zinc-500 text-sm leading-relaxed">{item.desc}</p>
-                    </div>
+                  { id: '01', title: 'Scan & Analyze', icon: 'M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z' },
+                  { id: '02', title: 'Decontaminate', icon: 'M19.428 15.428a2 2 0 00-1.022-.547l-2.384-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z' },
+                  { id: '03', title: 'Correct', icon: 'M13 10V3L4 14h7v7l9-11h-7z' },
+                  { id: '04', title: 'Shield', icon: 'M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z' },
+                ].map((step, idx) => (
+                  <div key={idx} className="group relative p-8 glass-panel hover:bg-cyan-900/10 transition-colors duration-500">
+                     <div className="absolute top-0 right-0 p-4 text-4xl font-black text-white/5 group-hover:text-cyan-500/10 transition-colors font-mono">{step.id}</div>
+                     <div className="w-12 h-12 bg-gradient-to-br from-cyan-500 to-purple-600 rounded-lg flex items-center justify-center mb-6 shadow-lg shadow-cyan-500/20 group-hover:scale-110 transition-transform">
+                       <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={step.icon} />
+                       </svg>
+                     </div>
+                     <h3 className="text-xl font-bold text-white mb-2">{step.title}</h3>
+                     <div className="h-1 w-12 bg-zinc-700 group-hover:bg-cyan-400 transition-colors duration-500 rounded-full"></div>
                   </div>
                 ))}
-              </div>
-
-              <div className="mt-12">
-                <button 
-                  onClick={() => setIsAboutExpanded(!isAboutExpanded)}
-                  className="text-purple-500 font-black uppercase tracking-widest text-sm flex items-center gap-3 hover:text-purple-400 transition-all font-lexend active:scale-95"
-                >
-                  {isAboutExpanded ? 'Show Less' : 'Discover Our Full Process'}
-                  <svg xmlns="http://www.w3.org/2000/svg" className={`h-5 w-5 transition-transform duration-500 ${isAboutExpanded ? 'rotate-180' : ''}`} viewBox="0 0 20 20" fill="currentColor">
-                    <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
-                  </svg>
-                </button>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Process Section - Productive and Professional Replacement for Map */}
-        <section id="process" className="py-32 bg-zinc-950/20 reveal-on-scroll" ref={addToRefs}>
-          <div className="container mx-auto px-6">
-            <div className="text-center mb-20">
-              <h2 className="text-purple-500 font-black tracking-[0.3em] uppercase mb-4 text-sm">Service Protocol</h2>
-              <h3 className="text-4xl md:text-5xl font-bold text-white mb-6 font-lexend">The Road to Perfection</h3>
-              <p className="text-zinc-500 max-w-2xl mx-auto">
-                A structured, disciplined approach to vehicle restoration that ensures consistency and excellence in every project.
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-              {[
-                { step: "01", name: "Assessment", desc: "Detailed inspection under specialized lighting to identify paint defects." },
-                { step: "02", name: "Purification", desc: "Multi-stage decontamination wash removing fallout and road grime." },
-                { step: "03", name: "Correction", desc: "Precision machine polishing to restore depth and mirror clarity." },
-                { step: "04", name: "Fortification", desc: "Application of premium ceramic or graphene protective layers." }
-              ].map((item, idx) => (
-                <div key={idx} className="p-10 bg-[#0e0e11] rounded-[2.5rem] border border-white/5 hover:border-purple-500/40 transition-all group relative overflow-hidden hover:-translate-y-2">
-                  <div className="absolute top-0 right-0 p-8 opacity-5 text-8xl font-black text-purple-500 group-hover:opacity-10 transition-opacity">
-                    {item.step}
-                  </div>
-                  <div className="relative z-10">
-                    <div className="w-12 h-12 bg-purple-600/10 rounded-xl flex items-center justify-center mb-8 text-purple-500 font-black text-xl border border-purple-500/20 group-hover:bg-purple-600 group-hover:text-white transition-all">
-                      {item.step}
-                    </div>
-                    <h4 className="text-xl font-bold text-white mb-4 font-lexend">{item.name}</h4>
-                    <p className="text-zinc-500 text-sm leading-relaxed">{item.desc}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-            
-            <div className="mt-20 p-12 bg-gradient-to-r from-purple-900/20 to-transparent rounded-[3rem] border border-purple-500/10 flex flex-col md:flex-row items-center justify-between gap-10 hover:shadow-2xl hover:shadow-purple-500/10 transition-shadow">
-              <div>
-                <h4 className="text-2xl font-bold text-white mb-2 font-lexend">Ready to elevate your driving experience?</h4>
-                <p className="text-zinc-400">Join the elite circle of enthusiasts who trust our precision.</p>
-              </div>
-              <a href="#booking" className="bg-white text-[#09090b] px-10 py-5 rounded-2xl font-black uppercase tracking-widest text-sm hover:bg-purple-500 hover:text-white transition-all shadow-xl active:scale-95">
-                Initialize Booking
-              </a>
-            </div>
-          </div>
+             </div>
+           </div>
         </section>
         
-        <div className="reveal-on-scroll" ref={addToRefs}>
+        {/* Booking Section - "Input Terminal" */}
+        <div ref={addToRefs} className="reveal-on-scroll">
           <BookingForm selectedServiceIds={selectedServiceIds} />
         </div>
       </main>
